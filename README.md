@@ -4,7 +4,7 @@ Purrfect Partner
 
 Project Description:
 
-Project is about creating a database for finding cat cafe's in the state of Florida as well as adoption centers.The website should host the locations of the cat cafe's/adoption centers as well as the cats they have for adoption.
+This project is about creating a database for finding cat cafés in the state of Florida as well as adoption centers. The website will host the locations of the cat cafés/adoption centers as well as further details about the cats they have for adoption. Thus, this space is designated for future cat parents to easily find their perfect pet!
 
 Group members:
 Andrea Sanchez (Back-end), Alexandra Tabares (Front-end), Santiago Barrios (Back-end), Bruno Montes (Front-end)
