@@ -3,6 +3,7 @@ package main
 //import packages
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -41,14 +42,14 @@ func deleteCat(w http.ResponseWriter, r *http.Request) {
 	for index, item := range cats {
 
 		//if the name and the location of the cat are the same then get rid of it
-		if item.Name == params["id"] {
+		if item.ID == params["id"] {
 
+			fmt.Println("In Delete if statement")
 			cats = append(cats[:index], cats[index+1:]...)
 			break
 		}
 
 	}
-
 	//encode the new cats slice
 	json.NewEncoder(w).Encode(cats)
 
@@ -63,7 +64,7 @@ func getCat(w http.ResponseWriter, r *http.Request) {
 
 	for _, item := range cats {
 
-		if item.Name == params["id"] {
+		if item.ID == params["id"] {
 
 			//go get the cat in question
 			json.NewEncoder(w).Encode(item)
@@ -98,7 +99,7 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 	//inside the for loop we delete than update
 	for index, item := range cats {
 
-		if item.Name == params["id"] {
+		if item.ID == params["id"] {
 
 			//delete the cat
 			cats = append(cats[:index], cats[index+1:]...)
@@ -107,11 +108,7 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 
 			_ = json.NewDecoder(r.Body).Decode(&cat)
 
-			cat.Age = params["age"]
-			cat.Name = params["name"]
-			cat.Gender = params["gender"]
-			cat.Loc = params["location"]
-			cat.Loc = params["id"]
+			cat.ID = params["id"]
 
 			//update with new cat
 			cats = append(cats, cat)
