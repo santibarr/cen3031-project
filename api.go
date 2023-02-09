@@ -10,10 +10,11 @@ import (
 
 // Cat struct will have name, age, gender, and location
 type Cat struct {
-	Name   string `json: "name"`
-	Gender string `json: "gender"`
-	Age    string `json: "age"`
-	Loc    string `json: "location"`
+	Name   string `json:"name"`
+	Gender string `json:"gender"`
+	Age    string `json:"age"`
+	Loc    string `json:"location"`
+	ID     string `json:"id"`
 }
 
 // hold a slice of cats, will maybe change in future
@@ -40,7 +41,7 @@ func deleteCat(w http.ResponseWriter, r *http.Request) {
 	for index, item := range cats {
 
 		//if the name and the location of the cat are the same then get rid of it
-		if item.Name == params["name"] && item.Loc == params["location"] {
+		if item.Name == params["id"] {
 
 			cats = append(cats[:index], cats[index+1:]...)
 			break
@@ -62,7 +63,7 @@ func getCat(w http.ResponseWriter, r *http.Request) {
 
 	for _, item := range cats {
 
-		if item.Name == params["name"] && item.Loc == params["location"] {
+		if item.Name == params["id"] {
 
 			//go get the cat in question
 			json.NewEncoder(w).Encode(item)
@@ -97,7 +98,7 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 	//inside the for loop we delete than update
 	for index, item := range cats {
 
-		if item.Name == params["name"] && item.Loc == params["location"] {
+		if item.Name == params["id"] {
 
 			//delete the cat
 			cats = append(cats[:index], cats[index+1:]...)
@@ -110,6 +111,7 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 			cat.Name = params["name"]
 			cat.Gender = params["gender"]
 			cat.Loc = params["location"]
+			cat.Loc = params["id"]
 
 			//update with new cat
 			cats = append(cats, cat)
