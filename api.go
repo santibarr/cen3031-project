@@ -99,6 +99,7 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 	//inside the for loop we delete than update
 	for index, item := range cats {
 
+		//check ID
 		if item.ID == params["id"] {
 
 			//delete the cat

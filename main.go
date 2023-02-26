@@ -11,6 +11,7 @@ import (
 
 func main() {
 
+	//router created
 	router := mux.NewRouter()
 
 	//example for now, but should invoke scraper.go to get cat objects.
