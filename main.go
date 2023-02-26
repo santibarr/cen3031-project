@@ -11,6 +11,10 @@ import (
 
 func main() {
 
+	//this should work
+	fs := http.FileServer(http.Dir("src"))
+	http.Handle("/", fs)
+
 	router := mux.NewRouter()
 
 	//example for now, but should invoke scraper.go to get cat objects.
@@ -24,6 +28,6 @@ func main() {
 	router.HandleFunc("/cats", createCat).Methods("POST")        //create a new cat
 
 	fmt.Println("Starting server at port 8000")
-	log.Fatal(http.ListenAndServe(":8000", router))
+	log.Fatal(http.ListenAndServe(":8000", nil))
 
 }
