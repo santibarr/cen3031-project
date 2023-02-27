@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 
-	"strings"
-
 	"github.com/gocolly/colly"
 )
 type cat struct {
@@ -14,8 +12,9 @@ type cat struct {
 	Age string `json:"age"`
 	ImageURL string `json:"imageUrl"`
 }
+
 //make a default value since many websites do not have all the information for the cat object
-func  SetDefault(catDefault *cat){
+func  SetDefaultUnknown(catDefault *cat){
 	if catDefault.Name == ""{
 		catDefault.Name = "Unknown"
 	}
@@ -32,14 +31,27 @@ func  SetDefault(catDefault *cat){
 		catDefault.ImageURL = "Unknown"
 	}
 }
-func Parsing(str string){
-	//catIgnore := str[0:3]
-	//fmt.Println(catIgnore)
-	catName := strings.Split(str,")")
-	fmt.Println(catName)
+func SetDefaultInWebsite(catWebDefault *cat){
+	if catWebDefault.Name == ""{
+		catWebDefault.Name = "On Website"
+	}
+	if catWebDefault.Age == ""{
+		catWebDefault.Age = "On Website"
+	}
+	if catWebDefault.Gender == ""{
+		catWebDefault.Gender = "On Website"
+	}
+	if catWebDefault.Breed == ""{
+		catWebDefault.Breed = "On Website"
+	}
+	if catWebDefault.ImageURL == ""{
+		catWebDefault.ImageURL = "On Website"
+	}
 }
 
-func miamiDade(cats []cat){
+
+func miamiDade(cats []cat) []cat{
+	//var catz []cat
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"),)
 
 		
@@ -54,6 +66,7 @@ func miamiDade(cats []cat){
 
 			}
 			cats = append(cats, cat)// adds to the vector of cat objects
+			
 		})
 
 		//this is to access the next page
@@ -68,73 +81,74 @@ func miamiDade(cats []cat){
 
 		c.Visit("https://24petconnect.com/miad?at=CAT")
 		fmt.Println(cats)
+		return cats
 }
-func humaneSocietyBroward(cats []cat){
-	c := colly.NewCollector(colly.AllowedDomains("humanebroward.com"),)
-	
-	c.OnHTML("div[id=pets-container]", func(h *colly.HTMLElement){
-		cat := cat{
-			Name : h.ChildText("h3.pet-name"),
-			Gender : h.ChildText("div.pet-detail"),
-		// 	Breed : h.ChildText("div.pet-detail"),
-		// 	Age : h.ChildText("div.pet-detail"),
-		// 	ImageURL : h.ChildAttr("img", "src"),
-		 }
-		cats = append(cats, cat)
-	})
-	c.Visit("https://humanebroward.com/all-pets/?type=CAT&pg=1")
-	fmt.Println(cats)
 
-}
-func lakeCounty(cats []cat){
+func lakeCounty(cats []cat) []cat{
+	
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"),)
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement){ //makes the cat object from the tags on the HTML page
 		cat := cat{
 			Name : h.ChildText("span.text_Name.results"),
 			Gender : h.ChildText("span.text_Gender.results"),
+			Breed : "",
 			Age : h.ChildText("span.text_Age.results"),
 			ImageURL: h.ChildAttr("img", "src"),
 
 		}
-
+		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat) //Adds them into the vector of cat objects
 	})
 
 	c.Visit("https://24petconnect.com/LakeCountyAdoptablePets?at=CAT&sb=id_asc")
 	fmt.Println(cats)
+	return cats
 }
-func seminoleCounty(cats []cat){
-	c := colly.NewCollector(colly.AllowedDomains("petharbor.com"),)
 
-	c.OnHTML("div[class=GridResultsContainer]", func(h *colly.HTMLElement){
-		h.ForEach("div.gridResult", func(i int, e* colly.HTMLElement){
-			cat :=cat{
-				Name : e.ChildText("div.gridText"),
-				// Gender : e.Text,
-				// Gender : h.ChildText("div.gridText"),
-				// Breed : h.ChildText("div.gridText"),
-				// Age : h.ChildText("div.gridText"),
-				//ImageURL: h.ChildAttr("img", "src"),
-					
-			}
-			cats = append(cats, cat)
-		})
-		
-		// cats = append(cats, cat)	
-		// Parsing(cat.Name)
+func peggy(cats []cat) []cat{
+	c := colly.NewCollector()
+
+	c.OnHTML("div[class=animal-select]", func(h *colly.HTMLElement){
+		cat := cat{
+			Name : h.ChildText("div.animal-name.text-center"),
+			// Gender : h.ChildText("div.list-animal-sexSN"),
+			// Breed : h.ChildText("div.list-animal-breed"),
+			// Age : h.ChildText("div.list-animal-age"),
+			ImageURL : h.ChildAttr("img", "src"),
+		}
+		SetDefaultInWebsite(&cat)
+		cats = append(cats,cat)
 
 	})
-	c.Visit("https://petharbor.com/results.asp?searchtype=ADOPT&start=4&stylesheet=https://ominosity.github.io/smnl.css&grid=1&friends=1&samaritans=1&nosuccess=0&rows=10&imght=120&imgres=detail&tWidth=200&view=sysadm.v_smnl&nomax=1&nocustom=1&fontface=arial&fontsize=10&col_bg=ac5a5a&col_bg2=37c94e&miles=20&shelterlist=%27smnl%27&atype=&where=type_CAT&PAGE=1")
+	c.Visit("https://www.peggyadams.org/adopt-a-cat")
 	fmt.Println(cats)
+	return cats
+}
+func tampaBay(cats []cat) []cat{
+	c := colly.NewCollector()
 
+	c.OnHTML("div[class=adoptable-animal]", func(h *colly.HTMLElement){
+		cat := cat{
+			Name : h.ChildText("a.animal-name"),
+		}
+		cats = append(cats,cat)
+	})
+	c.Visit("https://spcatampabay.org/cats/")
+	fmt.Println(cats)
+	return cats
 }
 func main(){
 	var catsItem []cat
-	//humaneSocietyBroward(catsItem)
-	lakeCounty(catsItem)
-	fmt.Println(" ")
-	miamiDade(catsItem)
-	fmt.Println(" ")
-	seminoleCounty(catsItem)
+	
+	
+	// catsItem = miamiDade(catsItem)
+	// catsItem = lakeCounty(catsItem)
+	
+	// catsItem = peggy(catsItem)
+	catsItem = tampaBay(catsItem)
+	fmt.Println(len(catsItem))
+
+
+	
 }
