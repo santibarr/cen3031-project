@@ -125,50 +125,55 @@ func peggy(cats []cat) []cat{
 	fmt.Println(cats)
 	return cats
 }
-func osceola(cats []cat) []cat{
+func keyWest(cats []cat) []cat{
 	c := colly.NewCollector()
 
-	c.OnHTML("div[class=pet.col-md-4.col-sm-6]", func(h *colly.HTMLElement){
+	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement){
 		cat := cat{
-			Name : h.ChildText("div.pet-id.text-center"),
+			Name : h.ChildText("div.list-animal-name"),
+			Gender : h.ChildText("div.list-animal-sexSN"),
+			Breed : h.ChildText("div.list-animal-breed"),
+			Age : "",
+			ImageURL : h.ChildAttr("img", "src"),
 		}
+		SetDefaultInWebsite(&cat)
 		cats = append(cats,cat)
 	})
-	c.Visit("https://www.osceolacountypets.com/adoptable-pet-search/")
+	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002831&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
 	fmt.Println(cats)
 	return cats
 }
-func broward(cats []cat) []cat{
-	c := colly.NewCollector(colly.AllowedDomains("humanebroward.com"),)
-
-	c.OnHTML("div[class=elementor-widget-wrap elementor-element-populated]", func(h *colly.HTMLElement){
+func marathon(cats []cat) []cat{
+	c := colly.NewCollector()
+	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement){
 		cat := cat{
-			Name : h.ChildText("h3.pet-name"),
-			Gender : h.ChildText("div.pet-detail"),
+			Name : h.ChildText("div.list-animal-name"),
+			Gender : h.ChildText("div.list-animal-sexSN"),
+			Breed : h.ChildText("div.list-animal-breed"),
 			Age : "",
-			Breed : "",
-			ImageURL : "",
+			ImageURL : h.ChildAttr("img", "src"),
 		}
-	SetDefaultInWebsite(&cat)
-	cats = append(cats,cat)
-
+		SetDefaultInWebsite(&cat)
+		cats = append(cats,cat)
 	})
-	c.Visit("https://humanebroward.com/all-pets/?type=CAT&pg=1")
+	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002832&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
 	fmt.Println(cats)
 	return cats
 }
+
 func main(){
 	var catsItem []cat
 	
 	
-	// catsItem = miamiDade(catsItem)
-	// fmt.Println(" ")
-	// catsItem = lakeCounty(catsItem)
-	// fmt.Println(" ")
-	//catsItem = peggy(catsItem)
-	// fmt.Println(" ")
-	//catsItem = tampaBay(catsItem)
-	catsItem = osceola(catsItem)
+	catsItem = miamiDade(catsItem)
+	fmt.Println(" ")
+	catsItem = lakeCounty(catsItem)
+	fmt.Println(" ")
+	catsItem = peggy(catsItem)
+	fmt.Println(" ")
+	catsItem = marathon(catsItem)
+	fmt.Println(" ")
+	catsItem=keyWest(catsItem)
 	fmt.Println(len(catsItem))
 
 }
