@@ -4,7 +4,7 @@
         <a routerLink="shelters">LOCAL SHELTERS<i class= "bi bi-arrow-right"></i></a>
     </div>
 </div>
-<div class="container mt-5 mb-4">
+<div class="container mt-5 mb-5">
     <h1 class="text-center mb-4">How to Adopt a <span class="highlight">Cat</span></h1>
     <div class="row mt-5">
         <div class="col-lg-4 mt-2">
@@ -26,6 +26,20 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container mt-4 mb-4">
+    <h1 class="text-center">Meet some of our <span class="highlight">Feline Friends</span></h1>
+    <div class="row">
+        <div class="col-lg-3 mt-3" *ngFor= "let cd of catData; index as i">
+            <div class="litterbox" *ngIf= "i<=3">
+                <img src="{{cd.catImg}}" />
+                <h1>{{cd.catName}}</h1>
+                <p>{{cd.catPrice | currency: 'INR'}}</p>
+            </div>
+        </div>
+    </div>
+    <a routerLink="shelters" class = "viewmorebtn">VIEW MORE<i class= "bi bi-arrow-right"></i></a>
 </div>
     
 

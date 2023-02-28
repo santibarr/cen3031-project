@@ -10,6 +10,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SheltersComponent } from './pages/shelters/shelters.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { CatDetailsService } from './services/cat-details.service';
+
 
 @NgModule({
   declarations: [
@@ -21,12 +23,15 @@ import { ContactComponent } from './pages/contact/contact.component';
     SheltersComponent,
     AboutComponent,
     ContactComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+  
   ],
-  providers: [],
+  providers: [CatDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
