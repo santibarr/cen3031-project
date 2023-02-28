@@ -125,16 +125,35 @@ func peggy(cats []cat) []cat{
 	fmt.Println(cats)
 	return cats
 }
-func tampaBay(cats []cat) []cat{
+func osceola(cats []cat) []cat{
 	c := colly.NewCollector()
 
-	c.OnHTML("div[class=adoptable-animal]", func(h *colly.HTMLElement){
+	c.OnHTML("div[class=pet.col-md-4.col-sm-6]", func(h *colly.HTMLElement){
 		cat := cat{
-			Name : h.ChildText("a.animal-name"),
+			Name : h.ChildText("div.pet-id.text-center"),
 		}
 		cats = append(cats,cat)
 	})
-	c.Visit("https://spcatampabay.org/cats/")
+	c.Visit("https://www.osceolacountypets.com/adoptable-pet-search/")
+	fmt.Println(cats)
+	return cats
+}
+func broward(cats []cat) []cat{
+	c := colly.NewCollector(colly.AllowedDomains("humanebroward.com"),)
+
+	c.OnHTML("div[class=elementor-widget-wrap elementor-element-populated]", func(h *colly.HTMLElement){
+		cat := cat{
+			Name : h.ChildText("h3.pet-name"),
+			Gender : h.ChildText("div.pet-detail"),
+			Age : "",
+			Breed : "",
+			ImageURL : "",
+		}
+	SetDefaultInWebsite(&cat)
+	cats = append(cats,cat)
+
+	})
+	c.Visit("https://humanebroward.com/all-pets/?type=CAT&pg=1")
 	fmt.Println(cats)
 	return cats
 }
@@ -143,12 +162,13 @@ func main(){
 	
 	
 	// catsItem = miamiDade(catsItem)
+	// fmt.Println(" ")
 	// catsItem = lakeCounty(catsItem)
-	
-	// catsItem = peggy(catsItem)
-	catsItem = tampaBay(catsItem)
+	// fmt.Println(" ")
+	//catsItem = peggy(catsItem)
+	// fmt.Println(" ")
+	//catsItem = tampaBay(catsItem)
+	catsItem = osceola(catsItem)
 	fmt.Println(len(catsItem))
 
-
-	
 }
