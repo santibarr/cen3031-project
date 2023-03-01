@@ -23,9 +23,9 @@ type Cat struct {
 var cats []Cat
 
 // get all the cats
-func getCats(w http.ResponseWriter, r *http.Request) {
+func GetCats(w http.ResponseWriter, r *http.Request) {
 
-	//testing connection
+	//Status -> 200
 	w.WriteHeader(http.StatusOK)
 
 	//we want to set the header to be a json type
@@ -39,6 +39,8 @@ func getCats(w http.ResponseWriter, r *http.Request) {
 func deleteCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
+
+	w.WriteHeader(http.StatusNoContent)
 
 	//fill in the parameters from the website
 	params := mux.Vars(r)
@@ -64,7 +66,7 @@ func getCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	//testing connection
+	//Status -> 200
 	w.WriteHeader(http.StatusOK)
 
 	params := mux.Vars(r)
@@ -86,6 +88,9 @@ func createCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
+	//Status -> 200
+	w.WriteHeader(http.StatusOK)
+
 	var cat Cat //variable cat
 
 	//decode the information from the json to write it back
@@ -102,6 +107,9 @@ func updateCat(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
+
+	//Status -> 200
+	w.WriteHeader(http.StatusOK)
 
 	//inside the for loop we delete than update
 	for index, item := range cats {
