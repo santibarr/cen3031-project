@@ -44,3 +44,28 @@ func TestInWebsiteMarathon(t *testing.T){
 			t.Errorf("Expected %s do not match actual %s", expected, actual)
 		}
 	}
+
+func TestInWebMarathon(t *testing.T){
+	var catList []cat
+	catList = marathon(catList)
+	expected := "On Website"
+	for i := 0; i < len(catList); i++{
+		actual := catList[i].Age
+		if(expected != actual){
+			t.Errorf("Expected %s do not match actual %s", expected, actual)
+		}
+	}
+	//iterate through the catItem list and check if the Age says On Website since the HTML extraction did not display the age
+
+}
+func TestInWebLakeCountyBreed(t *testing.T){
+	var catList []cat
+	catList = lakeCounty(catList)
+	expected := "On Website"
+	for i := 0; i < len(catList); i++{
+		actual := catList[i].Breed
+		if(expected != actual){
+			t.Errorf("Expected %s do not match actual %s", expected, actual)
+		}
+	}
+}

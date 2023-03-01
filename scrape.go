@@ -293,19 +293,17 @@ func marathonString() string{
 
 func main(){
 	var catsItem []cat
-	// var str string
-	//  str = miamiDadeString()
-	//  fmt.Println(str)
-	// catsItem = miamiDade(catsItem)
-	// fmt.Println(" ")
-	// catsItem = lakeCounty(catsItem)
-	// fmt.Println(" ")
-	// catsItem = peggy(catsItem)
-	// fmt.Println(" ")
+	
+	catsItem = miamiDade(catsItem)
+	fmt.Println(" ")
+	catsItem = lakeCounty(catsItem)
+	fmt.Println(" ")
+	catsItem = peggy(catsItem)
+	fmt.Println(" ")
 	catsItem = marathon(catsItem)
-	// fmt.Println(" ")
-	//catsItem=keyWest(catsItem)
-	// fmt.Println(len(catsItem))
+	fmt.Println(" ")
+	catsItem=keyWest(catsItem)
+	fmt.Println(len(catsItem))
 
 
 
