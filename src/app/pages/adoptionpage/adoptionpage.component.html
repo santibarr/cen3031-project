@@ -1,0 +1,17 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-lg-6" *ngIf="shelterData"> 
+            <img src="{{shelterData[0].catImg}}" width="100%"/>
+            <h1 class = "mt-3">{{shelterData[0].catName}}</h1>
+            <p>{{shelterData[0].catDetails}}</p>
+            <p>{{shelterData[0].catPrice | currency :'INR'}}</p>
+        </div>
+    </div>
+    <div class="cik-lg-6">
+        <form>
+            <input type="text" class="form-control" placeholder="Enter Your Full Name" />
+            <input type="text" class="form-control" placeholder="Enter Your Mobile" />
+
+        </form>
+    </div>
+</div>
