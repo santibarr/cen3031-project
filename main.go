@@ -1,6 +1,5 @@
 package main
 
-//import packages - updated
 import (
 	"fmt"
 	"log"

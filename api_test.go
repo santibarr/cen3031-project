@@ -18,10 +18,20 @@ func testgetCats(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	responseRecorder := httptest.NewRecorder()
-	router := mux.NewRouter()
-	router.HandleFunc("/cats", getCats)
+	response := httptest.NewRecorder()
 
-	router.ServeHTTP(responseRecorder, req)
+	router := mux.NewRouter()
+	router.HandleFunc("/cats", getCats).Methods("GET")
+
+	router.ServeHTTP(response, req)
+
+	status := response.Code
+
+	if status != http.StatusOK {
+
+		t.Errorf("Status does not match up to StatusOK (200)")
+	}
+
+	println(response.Body)
 
 }

@@ -4,6 +4,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -23,6 +24,9 @@ var cats []Cat
 
 // get all the cats
 func getCats(w http.ResponseWriter, r *http.Request) {
+
+	//testing connection
+	w.WriteHeader(http.StatusOK)
 
 	//we want to set the header to be a json type
 	w.Header().Set("Content-Type", "application/json")
@@ -59,6 +63,9 @@ func deleteCat(w http.ResponseWriter, r *http.Request) {
 func getCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
+
+	//testing connection
+	w.WriteHeader(http.StatusOK)
 
 	params := mux.Vars(r)
 
