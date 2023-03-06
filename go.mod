@@ -6,6 +6,7 @@ go 1.19
 require (
 	github.com/gocolly/colly v1.2.0
 	github.com/gorilla/mux v1.8.0
+	
 )
 
 require (

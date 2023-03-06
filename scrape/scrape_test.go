@@ -48,7 +48,7 @@ func TestInWebsiteMarathon(t *testing.T) {
 
 func TestInWebMarathon(t *testing.T) {
 	var catList []Cat
-	catList = marathon(catList)
+	catList = Marathon(catList)
 	expected := "On Website"
 	for i := 0; i < len(catList); i++ {
 		actual := catList[i].Age
@@ -61,7 +61,7 @@ func TestInWebMarathon(t *testing.T) {
 }
 func TestInWebLakeCountyBreed(t *testing.T) {
 	var catList []Cat
-	catList = lakeCounty(catList)
+	catList = LakeCounty(catList)
 	expected := "On Website"
 	for i := 0; i < len(catList); i++ {
 		actual := catList[i].Breed

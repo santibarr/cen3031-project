@@ -36,7 +36,7 @@ func GetCats(w http.ResponseWriter, r *http.Request) {
 }
 
 // delete a cat from the website
-func deleteCat(w http.ResponseWriter, r *http.Request) {
+func DeleteCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -62,7 +62,7 @@ func deleteCat(w http.ResponseWriter, r *http.Request) {
 }
 
 // if we want a singular cat
-func getCat(w http.ResponseWriter, r *http.Request) {
+func GetCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -84,7 +84,7 @@ func getCat(w http.ResponseWriter, r *http.Request) {
 }
 
 // create a new cat object
-func createCat(w http.ResponseWriter, r *http.Request) {
+func CreateCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -102,7 +102,7 @@ func createCat(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func updateCat(w http.ResponseWriter, r *http.Request) {
+func UpdateCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 

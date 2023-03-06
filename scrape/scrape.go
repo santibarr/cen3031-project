@@ -50,7 +50,7 @@ func SetDefaultInWebsite(catWebDefault *Cat) {
 		catWebDefault.ImageURL = "On Website"
 	}
 }
-func miamiDade(cats []Cat) []Cat {
+func MiamiDade(cats []Cat) []Cat {
 	//var catz []cat
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
@@ -81,7 +81,7 @@ func miamiDade(cats []Cat) []Cat {
 	return cats
 }
 
-func lakeCounty(cats []Cat) []Cat {
+func LakeCounty(cats []Cat) []Cat {
 
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
@@ -102,7 +102,7 @@ func lakeCounty(cats []Cat) []Cat {
 	return cats
 }
 
-func peggy(cats []Cat) []Cat {
+func Peggy(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("div[class=animal-select]", func(h *colly.HTMLElement) {
@@ -121,7 +121,7 @@ func peggy(cats []Cat) []Cat {
 	fmt.Println(cats)
 	return cats
 }
-func keyWest(cats []Cat) []Cat {
+func KeyWest(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
@@ -139,7 +139,7 @@ func keyWest(cats []Cat) []Cat {
 	fmt.Println(cats)
 	return cats
 }
-func marathon(cats []Cat) []Cat {
+func Marathon(cats []Cat) []Cat {
 	c := colly.NewCollector()
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
 		cat := Cat{
