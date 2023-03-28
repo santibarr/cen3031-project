@@ -1,0 +1,27 @@
+<div class="container mt-5 mb-5">
+
+    <div class="row">
+
+        <div class="col-lg-6" *ngIf="catsData">
+            <a routerLink="../../cats" class="btn btn-sm btn-dark mb-3">Back</a>
+            <img src="{{catsData[0].catImg}}" width="100%"/>
+            <h1 class ="mt-3">{{catsData[0].catName}}</h1>
+            <p>{{catsData[0].catDetails}}</p>
+            <p>{{catsData[0].catPrice | currency:'USD'}}</p>
+        </div>
+
+        <div class="col-lg-6 col-lg-12">
+            <h1>Enter Your Details</h1>
+            <form>
+
+                <input type="text" class="form-control" placeholder="Enter Your Full Name" />
+                <input type="text" class="form-control" placeholder="Enter Your Mobile" />
+                <textarea class="form-control" placeholder="Enter Your Address"></textarea>
+                <button class="btn btn-md btn-dark mt-3">Adopt</button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
