@@ -18,7 +18,7 @@ type Cat struct {
 	ImageURL string `json:"imageUrl"`
 	Feature string `json:"feature"`
 }
-var features = []string{"friendly", "playful", "adorable", "sweet", "loving", "affectionate", "calm", "curious", "independent", "active", "energetic", "loves attention", "loves to cuddle", "loves to play", "loves to be pet"}
+var features = []string{"friendly", "playful", "adorable", "loving", "affectionate", "curious", "energetic", "loves attention", "loves to cuddle", "loves to play", "loves to be pet"}
 
 
 // make a default value since many websites do not have all the information for the cat object
@@ -87,6 +87,8 @@ func MiamiDade(cats []Cat) []Cat {
 	// })
 
 	c.Visit("https://24petconnect.com/miad?at=CAT")
+	fmt.Println(cats)
+
 	return cats
 }
 
@@ -111,6 +113,8 @@ func LakeCounty(cats []Cat) []Cat {
 	})
 
 	c.Visit("https://24petconnect.com/LakeCountyAdoptablePets?at=CAT&sb=id_asc")
+	fmt.Println(cats)
+
 	return cats
 }
 
@@ -134,6 +138,8 @@ func Peggy(cats []Cat) []Cat {
 
 	})
 	c.Visit("https://www.peggyadams.org/adopt-a-cat")
+	fmt.Println(cats)
+
 	return cats
 }
 func KeyWest(cats []Cat) []Cat {
@@ -155,6 +161,8 @@ func KeyWest(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002831&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
+	fmt.Println(cats)
+
 	return cats
 }
 func Marathon(cats []Cat) []Cat {
@@ -175,6 +183,8 @@ func Marathon(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002832&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
+	fmt.Println(cats)
+
 	return cats
 }
 
@@ -184,12 +194,14 @@ func miamiDadeString() string {
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement) { //gets the elements from the gridResult
+		
 		cat := Cat{
 			Name:     h.ChildText("span.text_Name.results"),
 			Gender:   h.ChildText("span.text_Gender.results"),
 			Breed:    h.ChildText("span.text_Breed.results"),
 			Age:      h.ChildText("span.text_Age.results"),
 			ImageURL: h.ChildAttr("img", "src"),
+
 		}
 		cats = append(cats, cat) // adds to the vector of cat objects
 
@@ -209,12 +221,14 @@ func lakeCountyString() string {
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement) { //makes the cat object from the tags on the HTML page
+		
 		cat := Cat{
 			Name:     h.ChildText("span.text_Name.results"),
 			Gender:   h.ChildText("span.text_Gender.results"),
 			Breed:    "",
 			Age:      h.ChildText("span.text_Age.results"),
 			ImageURL: h.ChildAttr("img", "src"),
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat) //Adds them into the vector of cat objects
@@ -235,12 +249,14 @@ func peggyString() string {
 	c := colly.NewCollector()
 
 	c.OnHTML("div[class=animal-select]", func(h *colly.HTMLElement) {
+		
 		cat := Cat{
 			Name: h.ChildText("div.animal-name.text-center"),
 			// Gender : h.ChildText("div.list-animal-sexSN"),
 			// Breed : h.ChildText("div.list-animal-breed"),
 			// Age : h.ChildText("div.list-animal-age"),
 			ImageURL: h.ChildAttr("img", "src"),
+			
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
@@ -261,12 +277,15 @@ func keyWestString() string {
 	c := colly.NewCollector()
 
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
+		
 		cat := Cat{
 			Name:     h.ChildText("div.list-animal-name"),
 			Gender:   h.ChildText("div.list-animal-sexSN"),
 			Breed:    h.ChildText("div.list-animal-breed"),
 			Age:      "",
 			ImageURL: h.ChildAttr("img", "src"),
+			
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
@@ -285,12 +304,14 @@ func marathonString() string {
 
 	c := colly.NewCollector()
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
+		
 		cat := Cat{
 			Name:     h.ChildText("div.list-animal-name"),
 			Gender:   h.ChildText("div.list-animal-sexSN"),
 			Breed:    h.ChildText("div.list-animal-breed"),
 			Age:      "",
 			ImageURL: h.ChildAttr("img", "src"),
+			
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
@@ -306,17 +327,17 @@ func marathonString() string {
 }
 
 // func main(){
-// 	var catsItem []cat
+// 	var catsItem []Cat
 
-// 	catsItem = miamiDade(catsItem)
+// 	catsItem = MiamiDade(catsItem)
 // 	fmt.Println(" ")
-// 	catsItem = lakeCounty(catsItem)
+// 	catsItem = LakeCounty(catsItem)
 // 	fmt.Println(" ")
-// 	catsItem = peggy(catsItem)
+// 	catsItem = Peggy(catsItem)
 // 	fmt.Println(" ")
-// 	catsItem = marathon(catsItem)
+// 	catsItem = Marathon(catsItem)
 // 	fmt.Println(" ")
-// 	catsItem=keyWest(catsItem)
+// 	catsItem=KeyWest(catsItem)
 // 	fmt.Println(len(catsItem))
 
 // }
