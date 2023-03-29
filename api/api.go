@@ -22,6 +22,9 @@ func GetCats(w http.ResponseWriter, r *http.Request) {
 
 	cats = append(cats, scrape.MiamiDade(cats)...)
 	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
 
 	//we want to set the header to be a json type
 	w.Header().Set("Content-Type", "application/json")
@@ -39,6 +42,12 @@ func DeleteCat(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusNoContent)
+
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
 
 	//fill in the parameters from the website
 	params := mux.Vars(r)
@@ -66,6 +75,11 @@ func GetCat(w http.ResponseWriter, r *http.Request) {
 
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
 
 	params := mux.Vars(r)
 
@@ -88,6 +102,11 @@ func CreateCat(w http.ResponseWriter, r *http.Request) {
 
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
 
 	var cat scrape.Cat //variable cat
 
@@ -108,6 +127,12 @@ func UpdateCat(w http.ResponseWriter, r *http.Request) {
 
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
+
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
 
 	//inside the for loop we delete than update
 	for index, item := range cats {
