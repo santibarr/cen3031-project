@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CatDetailsService } from 'src/app/services/cat-details.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-cats',
+  templateUrl: './cats.component.html',
+  styleUrls: ['./cats.component.css']
 })
-export class HomeComponent implements OnInit {
+export class CatsComponent implements OnInit {
   constructor(private service:CatDetailsService) { }
   catData:any;
   ngOnInit(): void {

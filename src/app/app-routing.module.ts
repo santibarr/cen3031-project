@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
-import { AdoptionpageComponent } from './pages/adoptionpage/adoptionpage.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SheltersComponent} from './pages/shelters/shelters.component';
+import { ShelterpageComponent } from './pages/shelterpage/shelterpage.component';
+import { CatsComponent } from './pages/cats/cats.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  {path:'shelters', component:SheltersComponent},
-  {path:'shelters/:id',component:AdoptionpageComponent},
+  {path:'cats',component:CatsComponent},
+  {path:'cats/:id',component:ShelterpageComponent},
   {path:'about',component:AboutComponent},
   {path:'contact',component:ContactComponent}
 ];
