@@ -1,0 +1,19 @@
+<div class="container mt-5 mb-5">
+
+    <div class="row">
+
+        <div class="col-lg-4" *ngFor="let cd of catData">
+
+            <div class="catbox mt-3 mb-3">
+                <img src="{{cd.catImg}}">
+                <h1>{{cd.catName}}</h1>
+                <p>{{cd.catDetail}}</p>
+                <p>{{cd.catPrice | currency:'USD'}}</p>
+                <br/>
+                <a class="buybtn" [routerLink]="['/cats',cd.id]">Adopt Now &nbsp;<i class="bi bi-clipboard-heart"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
