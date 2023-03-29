@@ -7,11 +7,10 @@ import { purfectPartnerComponent } from './purfectPartner.component';
 import { NavbarComponent } from './sharepage/navbar/navbar.component';
 import { FooterComponent } from './sharepage/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SheltersComponent } from './pages/shelters/shelters.component';
+import { CatsComponent } from './pages/cats/cats.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { CatDetailsService } from './services/cat-details.service';
-
+import { ShelterpageComponent } from './pages/shelterpage/shelterpage.component';
 
 @NgModule({
   declarations: [
@@ -20,18 +19,16 @@ import { CatDetailsService } from './services/cat-details.service';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    SheltersComponent,
+    CatsComponent,
     AboutComponent,
     ContactComponent,
-    
-    
+    ShelterpageComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-  
+    AppRoutingModule
   ],
-  providers: [CatDetailsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
