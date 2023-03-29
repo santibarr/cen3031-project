@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"strings"
 
+	"math/rand"
+	"time"
+
 	"github.com/gocolly/colly"
 )
 
@@ -13,7 +16,10 @@ type Cat struct {
 	Breed    string `json:"breed"`
 	Age      string `json:"age"`
 	ImageURL string `json:"imageUrl"`
+	Feature string `json:"feature"`
 }
+var features = []string{"friendly", "playful", "adorable", "sweet", "loving", "affectionate", "calm", "curious", "independent", "active", "energetic", "loves attention", "loves to cuddle", "loves to play", "loves to be pet"}
+
 
 // make a default value since many websites do not have all the information for the cat object
 func SetDefaultUnknown(catDefault *Cat) {
@@ -55,12 +61,16 @@ func MiamiDade(cats []Cat) []Cat {
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement) { //gets the elements from the gridResult
+		rand.Seed(time.Now().UnixNano())
+        ranFeature := rand.Intn(len(features))
 		cat := Cat{
 			Name:     h.ChildText("span.text_Name.results"),
 			Gender:   h.ChildText("span.text_Gender.results"),
 			Breed:    h.ChildText("span.text_Breed.results"),
 			Age:      h.ChildText("span.text_Age.results"),
 			ImageURL: h.ChildAttr("img", "src"),
+			Feature: features[ranFeature],
+
 		}
 		cats = append(cats, cat) // adds to the vector of cat objects
 
@@ -85,12 +95,16 @@ func LakeCounty(cats []Cat) []Cat {
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement) { //makes the cat object from the tags on the HTML page
+		rand.Seed(time.Now().UnixNano())
+        ranFeature := rand.Intn(len(features))
 		cat := Cat{
 			Name:     h.ChildText("span.text_Name.results"),
 			Gender:   h.ChildText("span.text_Gender.results"),
 			Breed:    "",
 			Age:      h.ChildText("span.text_Age.results"),
 			ImageURL: h.ChildAttr("img", "src"),
+			Feature: features[ranFeature],
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat) //Adds them into the vector of cat objects
@@ -104,12 +118,16 @@ func Peggy(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("div[class=animal-select]", func(h *colly.HTMLElement) {
+		rand.Seed(time.Now().UnixNano())
+        ranFeature := rand.Intn(len(features))
 		cat := Cat{
 			Name: h.ChildText("div.animal-name.text-center"),
 			// Gender : h.ChildText("div.list-animal-sexSN"),
 			// Breed : h.ChildText("div.list-animal-breed"),
 			// Age : h.ChildText("div.list-animal-age"),
 			ImageURL: h.ChildAttr("img", "src"),
+			Feature: features[ranFeature],
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
@@ -122,12 +140,16 @@ func KeyWest(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
+		rand.Seed(time.Now().UnixNano())
+        ranFeature := rand.Intn(len(features))
 		cat := Cat{
 			Name:     h.ChildText("div.list-animal-name"),
 			Gender:   h.ChildText("div.list-animal-sexSN"),
 			Breed:    h.ChildText("div.list-animal-breed"),
 			Age:      "",
 			ImageURL: h.ChildAttr("img", "src"),
+			Feature: features[ranFeature],
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
@@ -138,12 +160,16 @@ func KeyWest(cats []Cat) []Cat {
 func Marathon(cats []Cat) []Cat {
 	c := colly.NewCollector()
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
+		rand.Seed(time.Now().UnixNano())
+        ranFeature := rand.Intn(len(features))
 		cat := Cat{
 			Name:     h.ChildText("div.list-animal-name"),
 			Gender:   h.ChildText("div.list-animal-sexSN"),
 			Breed:    h.ChildText("div.list-animal-breed"),
 			Age:      "",
 			ImageURL: h.ChildAttr("img", "src"),
+			Feature: features[ranFeature],
+
 		}
 		SetDefaultInWebsite(&cat)
 		cats = append(cats, cat)
