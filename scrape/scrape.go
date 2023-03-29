@@ -77,7 +77,6 @@ func MiamiDade(cats []Cat) []Cat {
 	// })
 
 	c.Visit("https://24petconnect.com/miad?at=CAT")
-	fmt.Println(cats)
 	return cats
 }
 
@@ -98,7 +97,6 @@ func LakeCounty(cats []Cat) []Cat {
 	})
 
 	c.Visit("https://24petconnect.com/LakeCountyAdoptablePets?at=CAT&sb=id_asc")
-	fmt.Println(cats)
 	return cats
 }
 
@@ -118,7 +116,6 @@ func Peggy(cats []Cat) []Cat {
 
 	})
 	c.Visit("https://www.peggyadams.org/adopt-a-cat")
-	fmt.Println(cats)
 	return cats
 }
 func KeyWest(cats []Cat) []Cat {
@@ -136,7 +133,6 @@ func KeyWest(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002831&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
-	fmt.Println(cats)
 	return cats
 }
 func Marathon(cats []Cat) []Cat {
@@ -153,7 +149,6 @@ func Marathon(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002832&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
-	fmt.Println(cats)
 	return cats
 }
 
