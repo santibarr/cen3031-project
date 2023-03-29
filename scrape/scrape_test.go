@@ -70,7 +70,7 @@ func TestInWebLakeCountyBreed(t *testing.T) {
 		}
 	}
 }
-//-----------------------Sprint 3 Tests------------------------------
+//--------------------------------------------------------Sprint 3 Tests----------------------------------------------------------------
 func TestFeaturesMiamiDade(t *testing.T){
 	var catList []Cat
 
