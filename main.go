@@ -7,7 +7,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/santibarr/cen3031-project/api"
-	"github.com/santibarr/cen3031-project/scrape"
 )
 
 func main() {
@@ -15,19 +14,19 @@ func main() {
 	//router created
 
 	//slice of cats
-	var cats []scrape.Cat
+	// var cats []scrape.Cat
 
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	//cats = append(cats, scrape.Peggy(cats)...)
-	//cats = append(cats, scrape.Marathon(cats)...)
-	//cats = append(cats, scrape.KeyWest(cats)...)
+	// cats = append(cats, scrape.MiamiDade(cats)...)
+	// cats = append(cats, scrape.LakeCounty(cats)...)
+	// //cats = append(cats, scrape.Peggy(cats)...)
+	// //cats = append(cats, scrape.Marathon(cats)...)
+	// //cats = append(cats, scrape.KeyWest(cats)...)
 	router := mux.NewRouter()
-	println(len(cats))
+	//println(len(cats))
 
 	//Err would be 404 not found, Directory does not exist
-	// fs := http.FileServer(http.Dir("dist/purfect-partner"))
-	// router.PathPrefix("/").Handler(http.StripPrefix("/", fs))
+	fs := http.FileServer(http.Dir("dist/purfect-partner"))
+	router.PathPrefix("/").Handler(http.StripPrefix("/", fs))
 
 	router.HandleFunc("/cats", api.GetCats).Methods("GET")           //read all cats
 	router.HandleFunc("/cats/{id}", api.GetCat).Methods("GET")       // read one cat
