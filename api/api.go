@@ -8,31 +8,29 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/santibarr/cen3031-project/scrape"
 )
 
-// Needs to match with cat struct in scrape.go
-type Cat struct {
-	Name   string `json:"name"`
-	Gender string `json:"gender"`
-	Age    string `json:"age"`
-	Loc    string `json:"location"`
-	ID     string `json:"id"`
-}
-
 // hold a slice of cats, will maybe change in future
-var cats []Cat
+var cats []scrape.Cat
 
 // get all the cats
 func GetCats(w http.ResponseWriter, r *http.Request) {
 
-	//Status -> 200
+	//Status -> 200s
 	w.WriteHeader(http.StatusOK)
+
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
 
 	//we want to set the header to be a json type
 	w.Header().Set("Content-Type", "application/json")
 
 	//encode the cats slice and put it on the front end
 	json.NewEncoder(w).Encode(cats)
+
+	fmt.Println(len(cats))
+
 }
 
 // delete a cat from the website
@@ -48,7 +46,7 @@ func DeleteCat(w http.ResponseWriter, r *http.Request) {
 	for index, item := range cats {
 
 		//if the name and the location of the cat are the same then get rid of it
-		if item.ID == params["id"] {
+		if item.Name == params["Name"] {
 
 			fmt.Println("In Delete if statement")
 			cats = append(cats[:index], cats[index+1:]...)
@@ -73,7 +71,7 @@ func GetCat(w http.ResponseWriter, r *http.Request) {
 
 	for _, item := range cats {
 
-		if item.ID == params["id"] {
+		if item.Name == params["Name"] {
 
 			//go get the cat in question
 			json.NewEncoder(w).Encode(item)
@@ -91,7 +89,7 @@ func CreateCat(w http.ResponseWriter, r *http.Request) {
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
 
-	var cat Cat //variable cat
+	var cat scrape.Cat //variable cat
 
 	//decode the information from the json to write it back
 	_ = json.NewDecoder(r.Body).Decode(&cat)
@@ -114,16 +112,16 @@ func UpdateCat(w http.ResponseWriter, r *http.Request) {
 	//inside the for loop we delete than update
 	for index, item := range cats {
 
-		if item.ID == params["id"] {
+		if item.Name == params["name"] {
 
 			//delete the cat
 			cats = append(cats[:index], cats[index+1:]...)
 
-			var cat Cat
+			var cat scrape.Cat
 
 			_ = json.NewDecoder(r.Body).Decode(&cat)
 
-			cat.ID = params["id"]
+			cat.Name = params["name"]
 
 			//update with new cat
 			cats = append(cats, cat)

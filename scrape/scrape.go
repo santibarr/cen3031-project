@@ -51,7 +51,7 @@ func SetDefaultInWebsite(catWebDefault *Cat) {
 	}
 }
 func MiamiDade(cats []Cat) []Cat {
-	//var catz []cat
+	//var catz []Cat
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
 	c.OnHTML("div[class=gridResult]", func(h *colly.HTMLElement) { //gets the elements from the gridResult
