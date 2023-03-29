@@ -70,3 +70,30 @@ func TestInWebLakeCountyBreed(t *testing.T) {
 		}
 	}
 }
+//-----------------------Sprint 3 Tests------------------------------
+func TestFeaturesMiamiDade(t *testing.T){
+	var catList []Cat
+
+	m := map[string]int{
+		"friendly": 1,
+		"playful": 2,
+		"adorable": 3,
+		"loving": 4,
+		"affectionate": 5,
+		"curious": 6,
+		"energetic": 7,
+		"loves attention": 8,
+		"loves to cuddle": 9,
+		"loves to play": 10,
+		"loves to be pet": 11,
+	}
+
+	catList = MiamiDade(catList)
+	for i := 0; i < len(catList); i++ {
+		actual := catList[i].Feature
+		if _, ok := m[actual]; !ok {
+			t.Errorf("Expected features in given features do not match actual %s", actual)
+		}
+
+	}
+}
