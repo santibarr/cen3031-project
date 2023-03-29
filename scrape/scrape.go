@@ -56,7 +56,7 @@ func SetDefaultInWebsite(catWebDefault *Cat) {
 		catWebDefault.ImageURL = "On Website"
 	}
 }
-func miamiDade(cats []Cat) []Cat {
+func MiamiDade(cats []Cat) []Cat {
 	//var catz []cat
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
@@ -87,11 +87,10 @@ func miamiDade(cats []Cat) []Cat {
 	// })
 
 	c.Visit("https://24petconnect.com/miad?at=CAT")
-	fmt.Println(cats)
 	return cats
 }
 
-func lakeCounty(cats []Cat) []Cat {
+func LakeCounty(cats []Cat) []Cat {
 
 	c := colly.NewCollector(colly.AllowedDomains("24petconnect.com"))
 
@@ -112,11 +111,10 @@ func lakeCounty(cats []Cat) []Cat {
 	})
 
 	c.Visit("https://24petconnect.com/LakeCountyAdoptablePets?at=CAT&sb=id_asc")
-	fmt.Println(cats)
 	return cats
 }
 
-func peggy(cats []Cat) []Cat {
+func Peggy(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("div[class=animal-select]", func(h *colly.HTMLElement) {
@@ -136,10 +134,9 @@ func peggy(cats []Cat) []Cat {
 
 	})
 	c.Visit("https://www.peggyadams.org/adopt-a-cat")
-	fmt.Println(cats)
 	return cats
 }
-func keyWest(cats []Cat) []Cat {
+func KeyWest(cats []Cat) []Cat {
 	c := colly.NewCollector()
 
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
@@ -158,10 +155,9 @@ func keyWest(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002831&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
-	fmt.Println(cats)
 	return cats
 }
-func marathon(cats []Cat) []Cat {
+func Marathon(cats []Cat) []Cat {
 	c := colly.NewCollector()
 	c.OnHTML("td[class=list-item]", func(h *colly.HTMLElement) {
 		rand.Seed(time.Now().UnixNano())
@@ -179,7 +175,6 @@ func marathon(cats []Cat) []Cat {
 		cats = append(cats, cat)
 	})
 	c.Visit("https://ws.petango.com/webservices/adoptablesearch/wsAdoptableAnimals.aspx?species=Cat&sex=A&agegroup=All&location=&site=00002832&onhold=A&orderby=ID&colnum=3&css=https://fkspca.org/wp-content/themes/FKSPCA/iframe.css&authkey=roapr67swoaniu7rlutho7wlesoukier1udriaslezoa0rleyl&recAmount=&detailsInPopup=No&featuredPet=Include&stageID=")
-	fmt.Println(cats)
 	return cats
 }
 

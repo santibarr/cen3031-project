@@ -51,7 +51,7 @@ func TestGetCat(t *testing.T) {
 	response := httptest.NewRecorder()
 
 	router := mux.NewRouter()
-	router.HandleFunc("/cats/{id}", getCat).Methods("GET")
+	router.HandleFunc("/cats/{id}", GetCat).Methods("GET")
 
 	router.ServeHTTP(response, req)
 
@@ -82,7 +82,7 @@ func TestCreateCat(t *testing.T) {
 
 	//create the new router
 	router := mux.NewRouter()
-	router.HandleFunc("/cats", createCat).Methods("POST")
+	router.HandleFunc("/cats", CreateCat).Methods("POST")
 
 	router.ServeHTTP(response, req) //create the http and see what happens
 
@@ -114,7 +114,7 @@ func TestUpdateCat(t *testing.T) {
 
 	//create the new router
 	router := mux.NewRouter()
-	router.HandleFunc("/cats/{id}", createCat).Methods("PUT")
+	router.HandleFunc("/cats/{id}", UpdateCat).Methods("PUT")
 
 	router.ServeHTTP(response, req) //create the http and see what happens
 
@@ -143,7 +143,7 @@ func TestDeleteCat(t *testing.T) {
 
 	response := httptest.NewRecorder()
 	router := mux.NewRouter()
-	router.HandleFunc("/cats/{id}", deleteCat).Methods("DELETE")
+	router.HandleFunc("/cats/{id}", DeleteCat).Methods("DELETE")
 	router.ServeHTTP(response, req)
 
 	status := response.Code
