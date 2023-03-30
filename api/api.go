@@ -32,8 +32,6 @@ func GetCats(w http.ResponseWriter, r *http.Request) {
 	//encode the cats slice and put it on the front end
 	json.NewEncoder(w).Encode(cats)
 
-	fmt.Println(len(cats))
-
 }
 
 // delete a cat from the website
