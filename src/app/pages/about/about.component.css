@@ -1,0 +1,42 @@
+.banner
+{
+    background-image: url('../../../assets/img/aboutcat.png');
+    height: 400px;
+    background-position: center top;
+    background-size: cover;
+}
+.content
+{
+    top: 30%;
+    left: 10%;
+    position: absolute;
+}
+.content h1
+{
+    color: var(--primary-color);
+    font-size: 70px;
+    font-weight: bold;
+    
+}
+.box
+{
+    background-color: var(--primary-color);
+    padding: 80px 80px;
+    border-radius: 100px;
+    text-align: center;
+}
+
+.box h1
+{
+    font-size: 50px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.box p
+{
+    font-size: 20px;
+    font-style: italic;
+    color: #fff;
+
+}

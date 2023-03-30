@@ -6,6 +6,6 @@ describe('ContactComponent', () => {
     // mounts = visits but for components
     it('mounts', () => {
       cy.mount(ContactComponent)
-      cy.contains('Contact');
+      cy.contains('contact');
     })
   })
