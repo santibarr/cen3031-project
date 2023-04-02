@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,17 @@ import { HttpClient } from '@angular/common/http';
 
 export class AppComponent {
   title = 'front-end';
-  cats: any;
+  // cats: any;
 
-  constructor(private http: HttpClient) {}
+  // constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    //Make an HTTP GET request to the API
-    this.http.get('http://localhost:8080/cats').subscribe(data => {
-      //Read the result field from the JSON response.
-      this.cats = data;
-      console.log(data)
-    })
+  // ngOnInit() {
+  //   //Make an HTTP GET request to the API
+  //   this.http.get('http://localhost:8080/cats').subscribe(data => {
+  //     //Read the result field from the JSON response.
+  //     this.cats = data;
+  //     console.log(data)
+  //   })
 
-  }
+  // }
 }
