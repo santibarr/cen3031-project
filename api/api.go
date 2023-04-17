@@ -14,6 +14,16 @@ import (
 // hold a slice of cats, will maybe change in future
 var cats []scrape.Cat
 
+// create a new user object for contacts page
+type User struct {
+	Firstname string `json:"Firstname"`
+	Lastname  string `json:"Lastname"`
+	Email     string `json:"Email"`
+	Phone     string `json:"Phone"`
+}
+
+var users []User //user slice
+
 // get all the cats
 func GetCats(w http.ResponseWriter, r *http.Request) {
 
@@ -86,26 +96,29 @@ func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
 }
 
 // create a new cat object
-func CreateCat(w http.ResponseWriter, r *http.Request) {
+func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	//Status -> 200
-	w.WriteHeader(http.StatusOK)
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
-
-	var cat scrape.Cat //variable cat
+	var user User //variable user
 
 	//decode the information from the json to write it back
-	_ = json.NewDecoder(r.Body).Decode(&cat)
+	err := json.NewDecoder(r.Body).Decode(&user)
 
-	cats = append(cats, cat)
+	//print the error if there is one
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
 
-	json.NewEncoder(w).Encode(cat)
+	users = append(users, user) //append the user to the slice
+
+	//Status -> 200
+	w.WriteHeader(http.StatusCreated)
+
+	//print the user
+	for i := range users {
+		fmt.Println(users[i])
+	}
 
 }
 

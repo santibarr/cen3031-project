@@ -23,7 +23,7 @@ func main() {
 	router.HandleFunc("/cats-quiz", api.GetCatQuiz).Methods("GET")   // read all cats for quiz
 	router.HandleFunc("/cats/{id}", api.UpdateCat).Methods("PUT")    // update cat info
 	router.HandleFunc("/cats/{id}", api.DeleteCat).Methods("DELETE") // delete cat
-	router.HandleFunc("/cats", api.CreateCat).Methods("POST")        //create a new cat
+	router.HandleFunc("/contact", api.CreateUser).Methods("POST")    //create a new cat
 
 	//CORS middleware to bypass single origin policy
 	c := cors.New(cors.Options{
