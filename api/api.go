@@ -66,10 +66,8 @@ func DeleteCat(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// if we want a singular cat
-func GetCat(w http.ResponseWriter, r *http.Request) {
-
-	w.Header().Set("Content-Type", "application/json")
+// we want to display the cat info quiz on the website
+func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
 
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
@@ -79,17 +77,11 @@ func GetCat(w http.ResponseWriter, r *http.Request) {
 	cats = append(cats, scrape.Marathon(cats)...)
 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	params := mux.Vars(r)
+	//we want to set the header to be a json type
+	w.Header().Set("Content-Type", "application/json")
 
-	for _, item := range cats {
-
-		if item.Name == params["Name"] {
-
-			//go get the cat in question
-			json.NewEncoder(w).Encode(item)
-			return
-		}
-	}
+	//encode the cats slice and put it on the front end
+	json.NewEncoder(w).Encode(cats)
 
 }
 

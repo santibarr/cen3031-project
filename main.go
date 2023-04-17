@@ -20,7 +20,7 @@ func main() {
 	// router.PathPrefix("/").Handler(http.StripPrefix("/", fs))
 
 	router.HandleFunc("/cats", api.GetCats).Methods("GET")           //read all cats
-	router.HandleFunc("/cats/{id}", api.GetCat).Methods("GET")       // read one cat
+	router.HandleFunc("/cats-quiz", api.GetCatQuiz).Methods("GET")   // read all cats for quiz
 	router.HandleFunc("/cats/{id}", api.UpdateCat).Methods("PUT")    // update cat info
 	router.HandleFunc("/cats/{id}", api.DeleteCat).Methods("DELETE") // delete cat
 	router.HandleFunc("/cats", api.CreateCat).Methods("POST")        //create a new cat
