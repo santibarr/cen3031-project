@@ -114,6 +114,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	//Status -> 200
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(user)
 
 	//print the user
 	for i := range users {
