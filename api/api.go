@@ -23,7 +23,7 @@ type User struct {
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`
 	Email       string `json:"email"`
-	phoneNumber string `json:"phone"`
+	PhoneNumber string `json:"phone"`
 }
 
 var characteristic []CatCharacteristic
