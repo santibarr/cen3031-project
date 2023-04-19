@@ -1,251 +1,263 @@
-package api
+// package api
 
-//import packages - update
-import (
-	"encoding/json"
-	"fmt"
+// //import packages - update
+// import (
+// 	"encoding/json"
+// 	"fmt"
 
-	"net/http"
+// 	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/santibarr/cen3031-project/scrape"
-)
+// 	"github.com/gorilla/mux"
+// 	"github.com/santibarr/cen3031-project/scrape"
+// )
 
-// hold a slice of cats, will maybe change in future
-var cats []scrape.Cat
+// // hold a slice of cats, will maybe change in future
+// var cats []scrape.Cat
 
-// create a new user object for contacts page
-type CatCharacteristic struct {
-	Feature string `json:"Feature"`
-}
+// // create a new user object for contacts page
+// type CatCharacteristic struct {
+// 	Feature string `json:"Feature"`
+// }
 
-type User struct {
-	FirstName   string `json:"firstName"`
-	LastName    string `json:"lastName"`
-	Email       string `json:"email"`
-	phoneNumber string `json:"phone"`
-}
+// type User struct {
+// 	FirstName   string `json:"firstName"`
+// 	LastName    string `json:"lastName"`
+// 	Email       string `json:"email"`
+// 	phoneNumber string `json:"phone"`
+// }
 
-var characteristic []CatCharacteristic
-var users []User //user slice
+// var characteristic []CatCharacteristic
+// var users []User //user slice
 
-// create cat quiz struct
-// get all the cats
-func GetCats(w http.ResponseWriter, r *http.Request) {
+// // create cat quiz struct
+// // get all the cats
+// func GetCats(w http.ResponseWriter, r *http.Request) {
 
-	//Status -> 200s
-	w.WriteHeader(http.StatusOK)
+// 	//Status -> 200s
+// 	w.WriteHeader(http.StatusOK)
 
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	//we want to set the header to be a json type
-	w.Header().Set("Content-Type", "application/json")
+// 	//we want to set the header to be a json type
+// 	w.Header().Set("Content-Type", "application/json")
 
-	//encode the cats slice and put it on the front end
-	json.NewEncoder(w).Encode(cats)
+// 	//encode the cats slice and put it on the front end
+// 	json.NewEncoder(w).Encode(cats)
 
-}
+// }
 
-// delete a cat from the website
-func DeleteCat(w http.ResponseWriter, r *http.Request) {
+// // delete a cat from the website
+// func DeleteCat(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Content-Type", "application/json")
+// 	w.Header().Set("Content-Type", "application/json")
 
-	w.WriteHeader(http.StatusNoContent)
+// 	w.WriteHeader(http.StatusNoContent)
 
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	//fill in the parameters from the website
-	params := mux.Vars(r)
+// 	//fill in the parameters from the website
+// 	params := mux.Vars(r)
 
-	for index, item := range cats {
+// 	for index, item := range cats {
 
-		//if the name and the location of the cat are the same then get rid of it
-		if item.Name == params["Name"] {
+// 		//if the name and the location of the cat are the same then get rid of it
+// 		if item.Name == params["Name"] {
 
-			fmt.Println("In Delete if statement")
-			cats = append(cats[:index], cats[index+1:]...)
-			break
-		}
+// 			fmt.Println("In Delete if statement")
+// 			cats = append(cats[:index], cats[index+1:]...)
+// 			break
+// 		}
 
-	}
-	//encode the new cats slice
-	json.NewEncoder(w).Encode(cats)
+// 	}
+// 	//encode the new cats slice
+// 	json.NewEncoder(w).Encode(cats)
 
-}
+// }
 
-// if we want a singular cat
-func GetCat(w http.ResponseWriter, r *http.Request) {
+// // if we want a singular cat
+// func GetCat(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Content-Type", "application/json")
+// 	w.Header().Set("Content-Type", "application/json")
 
-	//Status -> 200
-	w.WriteHeader(http.StatusOK)
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// 	//Status -> 200
+// 	w.WriteHeader(http.StatusOK)
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	params := mux.Vars(r)
+// 	params := mux.Vars(r)
 
-	for _, item := range cats {
+// 	for _, item := range cats {
 
-		if item.Name == params["Name"] {
-
-			//go get the cat in question
-			json.NewEncoder(w).Encode(item)
-			return
-		}
-	}
+// 		if item.Name == params["Name"] {
 
-}
-func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+// 			//go get the cat in question
+// 			json.NewEncoder(w).Encode(item)
+// 			return
+// 		}
+// 	}
 
-	w.WriteHeader(http.StatusOK)
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// }
+// func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json")
 
-	var userResponse []CatCharacteristic
-	json.NewDecoder(r.Body).Decode(&userResponse)
-	fmt.Print(userResponse)
+// 	w.WriteHeader(http.StatusOK)
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	params := mux.Vars(r)
+// 	// var userResponse []CatCharacteristic
+// 	// json.NewDecoder(r.Body).Decode(&userResponse)
+// 	// fmt.Print(userResponse)
 
-	selectedFeature := params["Feature"]
-	var newCats []scrape.Cat
-	for _, item := range cats {
+// 	// params := mux.Vars(r)
 
-		if item.Feature == selectedFeature {
-			newCats = append(newCats, item)
-		}
-	}
-	json.NewEncoder(w).Encode(newCats)
+// 	// selectedFeature := params["Feature"]
+// 	// var newCats []scrape.Cat
+// 	// for _, item := range cats {
 
-}
-func GetCatQuizAddition(w http.ResponseWriter, r *http.Request) {
+// 	// 	if item.Feature == selectedFeature {
+// 	// 		newCats = append(newCats, item)
+// 	// 	}
+// 	// }
+// 	params := mux.Vars(r)
+// 	selectedFeature := params["Feature"]
 
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// 	// Filter cats based on selected feature
+// 	var newCats []scrape.Cat
+// 	for _, item := range cats {
+// 		if item.Feature == selectedFeature {
+// 			newCats = append(newCats, item)
+// 		}
+// 	}
 
-	selectedFeature := r.URL.Query().Get("feature")
 
-	pickedCats := make([]scrape.Cat, 0)
-	for _, cats := range cats {
-		if cats.Feature == selectedFeature {
-			pickedCats = append(pickedCats, cats)
-		}
-	}
+// 	json.NewEncoder(w).Encode(newCats)
 
-	responseJSON, err := json.Marshal(pickedCats)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+// }
+// func GetCatQuizAddition(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(responseJSON)
-}
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-// create a new cat object
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+// 	selectedFeature := r.URL.Query().Get("feature")
 
-	w.Header().Set("Content-Type", "application/json")
+// 	pickedCats := make([]scrape.Cat, 0)
+// 	for _, cats := range cats {
+// 		if cats.Feature == selectedFeature {
+// 			pickedCats = append(pickedCats, cats)
+// 		}
+// 	}
 
-	var user User //variable user
+// 	responseJSON, err := json.Marshal(pickedCats)
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
 
-	//decode the information from the json to write it back
-	err := json.NewDecoder(r.Body).Decode(&user)
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.Write(responseJSON)
+// }
 
-	//print the error if there is one
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-	}
+// // create a new cat object
+// func CreateUser(w http.ResponseWriter, r *http.Request) {
 
-	users = append(users, user) //append the user to the slice
+// 	w.Header().Set("Content-Type", "application/json")
 
-	//Status -> 200
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
+// 	var user User //variable user
 
-	//print the user
-	for i := range users {
-		fmt.Println(users[i])
-	}
+// 	//decode the information from the json to write it back
+// 	err := json.NewDecoder(r.Body).Decode(&user)
 
-}
-func CreateCat(w http.ResponseWriter, r *http.Request) {
+// 	//print the error if there is one
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusBadRequest)
+// 	}
 
-	w.Header().Set("Content-Type", "application/json")
+// 	users = append(users, user) //append the user to the slice
 
-	//Status -> 200
-	w.WriteHeader(http.StatusOK)
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// 	//Status -> 200
+// 	w.WriteHeader(http.StatusCreated)
+// 	json.NewEncoder(w).Encode(user)
 
-	var cat scrape.Cat //variable cat
+// 	//print the user
+// 	for i := range users {
+// 		fmt.Println(users[i])
+// 	}
 
-	//decode the information from the json to write it back
-	_ = json.NewDecoder(r.Body).Decode(&cat)
+// }
+// func CreateCat(w http.ResponseWriter, r *http.Request) {
 
-	cats = append(cats, cat)
+// 	w.Header().Set("Content-Type", "application/json")
 
-	json.NewEncoder(w).Encode(cat)
+// 	//Status -> 200
+// 	w.WriteHeader(http.StatusOK)
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-}
+// 	var cat scrape.Cat //variable cat
 
-func UpdateCat(w http.ResponseWriter, r *http.Request) {
+// 	//decode the information from the json to write it back
+// 	_ = json.NewDecoder(r.Body).Decode(&cat)
 
-	w.Header().Set("Content-Type", "application/json")
+// 	cats = append(cats, cat)
 
-	params := mux.Vars(r)
+// 	json.NewEncoder(w).Encode(cat)
 
-	//Status -> 200
-	w.WriteHeader(http.StatusOK)
+// }
 
-	cats = append(cats, scrape.MiamiDade(cats)...)
-	cats = append(cats, scrape.LakeCounty(cats)...)
-	cats = append(cats, scrape.Peggy(cats)...)
-	cats = append(cats, scrape.Marathon(cats)...)
-	cats = append(cats, scrape.KeyWest(cats)...)
+// func UpdateCat(w http.ResponseWriter, r *http.Request) {
 
-	//inside the for loop we delete than update
-	for index, item := range cats {
+// 	w.Header().Set("Content-Type", "application/json")
 
-		if item.Name == params["name"] {
+// 	params := mux.Vars(r)
 
-			//delete the cat
-			cats = append(cats[:index], cats[index+1:]...)
+// 	//Status -> 200
+// 	w.WriteHeader(http.StatusOK)
 
-			var cat scrape.Cat
+// 	cats = append(cats, scrape.MiamiDade(cats)...)
+// 	cats = append(cats, scrape.LakeCounty(cats)...)
+// 	cats = append(cats, scrape.Peggy(cats)...)
+// 	cats = append(cats, scrape.Marathon(cats)...)
+// 	cats = append(cats, scrape.KeyWest(cats)...)
 
-			_ = json.NewDecoder(r.Body).Decode(&cat)
+// 	//inside the for loop we delete than update
+// 	for index, item := range cats {
 
-			cat.Name = params["name"]
+// 		if item.Name == params["name"] {
 
-			//update with new cat
-			cats = append(cats, cat)
-			json.NewEncoder(w).Encode(item)
-			return
-		}
-	}
+// 			//delete the cat
+// 			cats = append(cats[:index], cats[index+1:]...)
 
-}
+// 			var cat scrape.Cat
+
+// 			_ = json.NewDecoder(r.Body).Decode(&cat)
+
+// 			cat.Name = params["name"]
+
+// 			//update with new cat
+// 			cats = append(cats, cat)
+// 			json.NewEncoder(w).Encode(item)
+// 			return
+// 		}
+// 	}
+
+// }
