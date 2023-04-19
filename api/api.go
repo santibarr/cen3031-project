@@ -123,10 +123,12 @@ func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
 	fmt.Print(userResponse)
 
 	params := mux.Vars(r)
+
+	selectedFeature := params["Feature"]
 	var newCats []scrape.Cat
 	for _, item := range cats {
 
-		if item.Feature == params["Feature"] {
+		if item.Feature == selectedFeature {
 			newCats = append(newCats, item)
 		}
 	}
@@ -185,6 +187,28 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	for i := range users {
 		fmt.Println(users[i])
 	}
+
+}
+func CreateCat(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+
+	//Status -> 200
+	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
+
+	var cat scrape.Cat //variable cat
+
+	//decode the information from the json to write it back
+	_ = json.NewDecoder(r.Body).Decode(&cat)
+
+	cats = append(cats, cat)
+
+	json.NewEncoder(w).Encode(cat)
 
 }
 
