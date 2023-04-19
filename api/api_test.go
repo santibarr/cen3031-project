@@ -155,3 +155,30 @@ func TestDeleteCat(t *testing.T) {
 	}
 
 }
+//-----New Unit test for Sprint 4-------//
+func TestGetCatQuiz(t *testing.T){
+	req, err := http.NewRequest("GET", "/cats/A245676", nil)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	response := httptest.NewRecorder()
+
+	router := mux.NewRouter()
+	router.HandleFunc("/cats-quiz", GetCatQuiz).Methods("GET")
+
+	router.ServeHTTP(response, req)
+
+	status := response.Code
+
+	println("This is the status code ", status)
+
+	if status != http.StatusOK {
+
+		t.Errorf("Status does not match up to StatusOK (200)")
+	}
+
+	println(response.Body.String())
+
+}
