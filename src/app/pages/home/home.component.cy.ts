@@ -9,3 +9,11 @@ describe('HomeComponent', () => {
       cy.contains('Find Your Forever Feline Friend!');
     })
   })
+
+describe('HomeComponent', () => {
+    // mounts = visits but for components
+    it('clicks', () => {
+      cy.mount(HomeComponent)
+      cy.contains('LOCAL cats');
+    })
+  })

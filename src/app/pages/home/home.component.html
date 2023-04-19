@@ -1,18 +1,18 @@
 <div class="banner">
     <div class="content">
         <h1 class="mb-5">Find Your Forever <br/> Feline Friend!</h1>
-        <a routerLink="cats">Local Cats <i class= "bi bi-arrow-right"></i></a>
+        <a routerLink="quiz">Find Your Match <i class= "bi bi-arrow-right"></i></a>
     </div>
 </div>
 <!-- step -->
 <div class="container mt-5 mb-5">
-    <h1 class="text-center mb-4">How to Adopt a <span class="highlight">Cat</span></h1>
+    <h1 class="text-center mb-4">Ways to Adopt a <span class="highlight">Cat</span></h1>
     <div class="row mt-5">
         <!-- ONE -->
         <div class="col-lg-4 mt-2">
             <div class="stepBox">
                 <h1>1</h1>
-                <p>Select your nearest shelter</p>
+                <p>Get matched with our quiz</p>
             </div>
         </div>
         <!-- TWO -->
@@ -35,7 +35,7 @@
 
 <!-- Cat Box -->
 <div class="container mt-4 mb-4">
-    <h1 class="text-center">Find Your <span class="highlight">Match</span></h1>
+    <h1 class="text-center">Check Local <span class="highlight">Cats</span></h1>
     <div class="row">
         <div class="col-lg-3 mt-3" *ngFor = "let cd of catData;index as i">
             <div class="catbox" *ngIf="i<=3">

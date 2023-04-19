@@ -6,6 +6,14 @@ describe('CatsComponent', () => {
     // mounts = visits but for components
     it('mounts', () => {
       cy.mount(CatsComponent)
-      cy.contains('Cats');
+      cy.contains('Slay');
+    })
+  })
+
+  describe('Adopt Button', () => {
+    // mounts = visits but for button
+    it('clicks', () => {
+      cy.mount(CatsComponent)
+      cy.contains('Adopt Now').click;
     })
   })
