@@ -11,6 +11,7 @@ import { CatsComponent } from './pages/cats/cats.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShelterpageComponent } from './pages/shelterpage/shelterpage.component';
+import { QuizComponent } from './pages/quiz/quiz.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ShelterpageComponent } from './pages/shelterpage/shelterpage.component'
     AboutComponent,
     ContactComponent,
     ShelterpageComponent,
+    QuizComponent,
   ],
   imports: [
     BrowserModule,
