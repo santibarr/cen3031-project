@@ -19,12 +19,21 @@
 // 	Feature string `json:"Feature"`
 // }
 
+<<<<<<< HEAD
 // type User struct {
 // 	FirstName   string `json:"firstName"`
 // 	LastName    string `json:"lastName"`
 // 	Email       string `json:"email"`
 // 	phoneNumber string `json:"phone"`
 // }
+=======
+type User struct {
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phone"`
+}
+>>>>>>> d9986b1a3fafe3f232bce0af1d4df3f7365cc2d2
 
 // var characteristic []CatCharacteristic
 // var users []User //user slice
