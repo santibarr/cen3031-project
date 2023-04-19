@@ -15,14 +15,12 @@ import (
 var cats []scrape.Cat
 
 // create a new user object for contacts page
-type User struct {
-	Firstname string `json:"Firstname"`
-	Lastname  string `json:"Lastname"`
-	Email     string `json:"Email"`
-	Phone     string `json:"Phone"`
+type CatCharacteristic struct {
+	Feature string `json:"Feature"`
+	
 }
 
-var users []User //user slice
+var characteristic []CatCharacteristic //user slice
 
 //create cat quiz struct
 // get all the cats
@@ -112,13 +110,19 @@ func GetCatQuiz(w http.ResponseWriter, r *http.Request){
 	cats = append(cats, scrape.Peggy(cats)...)
 	cats = append(cats, scrape.Marathon(cats)...)
 	cats = append(cats, scrape.KeyWest(cats)...)
-
+	
+	var userResponse []CatCharacteristic
+	json.NewDecoder(r.Body).Decode(&userResponse)
+	fmt.Print(userResponse)
 	params := mux.Vars(r)
-
+	var newCats []scrape.Cat
 	for _, item := range cats{
 
-		if item.Feature 
+		if item.Feature == params["Feature"]{
+			newCats = append(newCats, item)
+		}
 	} 
+	json.NewEncoder(w).Encode(newCats)
 
 
 }
