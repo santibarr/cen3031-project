@@ -24,6 +24,7 @@ type User struct {
 
 var users []User //user slice
 
+//create cat quiz struct
 // get all the cats
 func GetCats(w http.ResponseWriter, r *http.Request) {
 
@@ -76,8 +77,10 @@ func DeleteCat(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// we want to display the cat info quiz on the website
-func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
+// if we want a singular cat
+func GetCat(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
 
 	//Status -> 200
 	w.WriteHeader(http.StatusOK)
@@ -87,39 +90,60 @@ func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
 	cats = append(cats, scrape.Marathon(cats)...)
 	cats = append(cats, scrape.KeyWest(cats)...)
 
-	//we want to set the header to be a json type
+	params := mux.Vars(r)
+
+	for _, item := range cats {
+
+		if item.Name == params["Name"] {
+
+			//go get the cat in question
+			json.NewEncoder(w).Encode(item)
+			return
+		}
+	}
+
+}
+func GetCatQuiz(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
 
-	//encode the cats slice and put it on the front end
-	json.NewEncoder(w).Encode(cats)
+	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
+
+	params := mux.Vars(r)
+
+	for _, item := range cats{
+
+		if item.Feature 
+	} 
+
 
 }
 
 // create a new cat object
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+func CreateCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	var user User //variable user
+	//Status -> 200
+	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
+
+	var cat scrape.Cat //variable cat
 
 	//decode the information from the json to write it back
-	err := json.NewDecoder(r.Body).Decode(&user)
+	_ = json.NewDecoder(r.Body).Decode(&cat)
 
-	//print the error if there is one
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-	}
+	cats = append(cats, cat)
 
-	users = append(users, user) //append the user to the slice
-
-	//Status -> 200
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
-
-	//print the user
-	for i := range users {
-		fmt.Println(users[i])
-	}
+	json.NewEncoder(w).Encode(cat)
 
 }
 
