@@ -14,6 +14,22 @@ import (
 // hold a slice of cats, will maybe change in future
 var cats []scrape.Cat
 
+// create a new user object for contacts page
+type CatCharacteristic struct {
+	Feature string `json:"Feature"`
+}
+
+type User struct {
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phone"`
+}
+
+var characteristic []CatCharacteristic
+var users []User //user slice
+
+// create cat quiz struct
 // get all the cats
 func GetCats(w http.ResponseWriter, r *http.Request) {
 
@@ -92,8 +108,98 @@ func GetCat(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+func GetCatQuiz(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	w.WriteHeader(http.StatusOK)
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
+
+	// var userResponse []CatCharacteristic
+	// json.NewDecoder(r.Body).Decode(&userResponse)
+	// fmt.Print(userResponse)
+
+	// params := mux.Vars(r)
+
+	// selectedFeature := params["Feature"]
+	// var newCats []scrape.Cat
+	// for _, item := range cats {
+
+	// 	if item.Feature == selectedFeature {
+	// 		newCats = append(newCats, item)
+	// 	}
+	// }
+	params := mux.Vars(r)
+	selectedFeature := params["Feature"]
+
+	// Filter cats based on selected feature
+	var newCats []scrape.Cat
+	for _, item := range cats {
+		if item.Feature == selectedFeature {
+			newCats = append(newCats, item)
+		}
+	}
+
+	json.NewEncoder(w).Encode(newCats)
+
+}
+func GetCatQuizAddition(w http.ResponseWriter, r *http.Request) {
+
+	cats = append(cats, scrape.MiamiDade(cats)...)
+	cats = append(cats, scrape.LakeCounty(cats)...)
+	cats = append(cats, scrape.Peggy(cats)...)
+	cats = append(cats, scrape.Marathon(cats)...)
+	cats = append(cats, scrape.KeyWest(cats)...)
+
+	selectedFeature := r.URL.Query().Get("feature")
+
+	pickedCats := make([]scrape.Cat, 0)
+	for _, cats := range cats {
+		if cats.Feature == selectedFeature {
+			pickedCats = append(pickedCats, cats)
+		}
+	}
+
+	responseJSON, err := json.Marshal(pickedCats)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(responseJSON)
+}
 
 // create a new cat object
+func CreateUser(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+
+	var user User //variable user
+
+	//decode the information from the json to write it back
+	err := json.NewDecoder(r.Body).Decode(&user)
+
+	//print the error if there is one
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+	users = append(users, user) //append the user to the slice
+
+	//Status -> 200
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(user)
+
+	//print the user
+	for i := range users {
+		fmt.Println(users[i])
+	}
+
+}
 func CreateCat(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
